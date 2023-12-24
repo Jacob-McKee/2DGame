@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://3qhk0b4qe0j1"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/InventoryItem.gd" id="1_107lb"]
+[ext_resource type="Texture2D" uid="uid://udb4c1m7ugw6" path="res://Sprites/Crops/Crops-No-Text.png" id="2_20go1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amfw7"]
+atlas = ExtResource("2_20go1")
+region = Rect2(592, 15.7962, 16, 16.2038)
+
+[resource]
+script = ExtResource("1_107lb")
+name = "Corn"
+texture = SubResource("AtlasTexture_amfw7")
+quantity = 1

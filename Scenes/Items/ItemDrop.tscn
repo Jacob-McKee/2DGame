@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3e8qtl6uptr5"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/ItemDrop.gd" id="1_11xxw"]
+[ext_resource type="Script" path="res://Scripts/Inventory/InventoryItem.gd" id="2_dtxv2"]
+[ext_resource type="Texture2D" uid="uid://udb4c1m7ugw6" path="res://Sprites/Crops/Crops-No-Text.png" id="3_vky4k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amfw7"]
+atlas = ExtResource("3_vky4k")
+region = Rect2(592, 15.7962, 16, 16.2038)
+
+[sub_resource type="Resource" id="Resource_50ptd"]
+script = ExtResource("2_dtxv2")
+name = "Corn"
+texture = SubResource("AtlasTexture_amfw7")
+amount = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mdksd"]
+radius = 3.16228
+
+[node name="ItemDrop" type="Area2D"]
+script = ExtResource("1_11xxw")
+item_reference = SubResource("Resource_50ptd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mdksd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

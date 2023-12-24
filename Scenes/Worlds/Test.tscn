@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://klh7sckamdol"]
+
+[ext_resource type="Script" path="res://Scripts/InitialWorldSetup.gd" id="1_nqatt"]
+[ext_resource type="PackedScene" uid="uid://dlmhqpnmfxgx7" path="res://Scenes/Worlds/World.tscn" id="2_cp1u4"]
+
+[sub_resource type="Animation" id="Animation_qwynn"]
+resource_name = "DayNight"
+length = 1000.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-1.4, 201.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.352941, 0.560784, 0.905882, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bfso7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.352941, 0.560784, 0.905882, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x81u4"]
+_data = {
+"DayNight": SubResource("Animation_qwynn"),
+"RESET": SubResource("Animation_bfso7")
+}
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_nqatt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+texture_filter = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="TileMap" parent="HBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("2_cp1u4")]
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
+texture_filter = 1
+zoom = Vector2(4, 4)
+limit_left = 0
+limit_top = 0
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer2/SubViewport"]
+texture_filter = 1
+zoom = Vector2(4, 4)
+limit_left = 0
+limit_top = 0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.352941, 0.560784, 0.905882, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x81u4")
+}
+autoplay = "DayNight"
